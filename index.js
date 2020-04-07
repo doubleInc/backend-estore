@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 
 const orders = require("./routes/orders");
 const categories = require("./routes/categories");
+const categories = require("./routes/users");
 
 //load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -15,7 +16,7 @@ connectDB();
 const app = express();
 
 // body parser
-app.use(express.json())
+app.use(express.json());
 
 // Dev logging middleware
 process.env.NODE_ENV === "development" ? app.use(morgan("dev")) : null;
@@ -23,6 +24,7 @@ process.env.NODE_ENV === "development" ? app.use(morgan("dev")) : null;
 //mount routes
 app.use("/orders", orders);
 app.use("/categories", categories);
+//app.use("/users", users);
 
 // server settings
 const PORT = process.env.PORT || 3000;
