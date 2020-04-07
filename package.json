@@ -17,6 +17,7 @@
     "nodemon": "^2.0.2"
   },
   "devDependencies": {
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "slugify": "^1.4.0"
   }
 }
