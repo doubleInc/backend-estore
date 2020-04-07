@@ -1,3 +1,6 @@
+/*
+  Database connection 
+*/
 const mongoose = require("mongoose");
 
 // db connection
