@@ -3,7 +3,8 @@ const Category = require("../models/Category");
 
 // get all categories
 exports.getCategories = async (req, res, next) => {
-  const categories = await Category.find();
+  // req.query for searches; /categories?<key>=<value>
+  const categories = await Category.find(req.query);
 
   res.status(200).json({
     success: true,

@@ -7,7 +7,10 @@
 
 ### Basic requests
 
-------
+---
 
-`localhost:3000/categories` GET returns all categories
-`localhost:3000/categories/:id`GET single category
+`localhost:3000/categories` GET/POST(provide `name: string` and optional url `image: string`) [GET]returns all or [POST]add a category
+
+`localhost:3000/categories/:id` GET/PUT/DEL a single category
+
+`localhost:3000/categories?name=Fruits` include parameters to search
