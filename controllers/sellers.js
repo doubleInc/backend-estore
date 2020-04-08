@@ -94,7 +94,7 @@ exports.getSellerInLocale = async (req, res, next) => {
 
   // calc radius
   // divide distance by radius of earth 6376km
-  const radius = distance / 6376;
+  const radius = distance / 6378;
 
   // search sellers for lng and lat in radius(kms)
   const sellers = await Seller.find({
@@ -106,6 +106,7 @@ exports.getSellerInLocale = async (req, res, next) => {
   // respond with result of sellers
   res.status(200).json({
     success: true,
+    distance: radius,
     count: sellers.length,
     data: sellers,
   });

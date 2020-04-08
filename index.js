@@ -3,9 +3,6 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 
-const orders = require("./routes/orders");
-const categories = require("./routes/categories");
-
 //load env vars
 dotenv.config({ path: "./config/config.env" });
 
@@ -21,11 +18,13 @@ app.use(express.json());
 process.env.NODE_ENV === "development" ? app.use(morgan("dev")) : null;
 
 //mount routes
-app.use("/orders", orders);
-app.use("/categories", categories);
+app.use("/orders", require("./routes/orders"));
+app.use("/categories", require("./routes/categories"));
 app.use("/users", require("./routes/users"));
 app.use("/items", require("./routes/items"));
 app.use("/sellers", require("./routes/sellers"));
+// signup users
+app.use("/login", require("./routes/authorize"));
 
 // server settings
 const PORT = process.env.PORT || 3000;

@@ -3,6 +3,14 @@
       "name": "Joel Turnbull",
       "email": "joel@ga.co",
       "image": "",
-      "password": "chicken"
-    }
+      "password": "chicken123",
+      "address": "30 Balfour St, Chippendale NSW 2008"
+    },
+    {
+      "name": "Ben Willow",
+      "email": "ben@mail.com",
+      "image": "",
+      "password": "chicken123",
+			"address": "128 Pittwater Rd, Gladesville NSW 2111"
+}
 ]
