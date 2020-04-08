@@ -1,5 +1,6 @@
 // import model
 const Seller = require("../models/Seller");
+const geocoder = require("../geocoder");
 
 // get all Sellers
 exports.getSellers = async (req, res, next) => {
@@ -74,5 +75,35 @@ exports.deleteSeller = async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+  });
+};
+
+//get by location
+// GET /local/:postcode/:distance
+exports.getSellerInLocale = async (req, res, next) => {
+  const { postcode, distance } = req.params;
+
+  //get latitude and longitude, verizon maps(mapquest) needs the country name or will not know what to do with the postcode
+  const loc = await geocoder.geocode("Australia " + postcode);
+
+  const lat = loc[0].latitude;
+  const lng = loc[0].longitude;
+
+  // calc radius
+  // divide distance by radius of earth 6376km
+  const radius = distance / 6376;
+
+  // search sellers for lng and lat in radius(kms)
+  const sellers = await Seller.find({
+    location: {
+      $geoWithin: { $centerSphere: [[lng, lat], radius] },
+    },
+  });
+
+  // respond with result of sellers
+  res.status(200).json({
+    success: true,
+    count: sellers.length,
+    data: sellers,
   });
 };
