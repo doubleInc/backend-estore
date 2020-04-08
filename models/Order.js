@@ -9,7 +9,7 @@ const OrderSchema = new mongoose.Schema({
     required: true,
   },
   total: {
-    type: Decimal128,
+    type: mongoose.Decimal128,
     required: true,
   },
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],

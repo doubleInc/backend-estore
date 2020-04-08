@@ -9,11 +9,11 @@ const ItemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please include a name for the Item."],
-    unique: true,
+    unique: false,
     maxlength: [80, "Item name is longer than 80 characters."],
   },
   price: {
-    type: Decimal128,
+    type: mongoose.Decimal128,
     required: true,
   },
   quantity: {
