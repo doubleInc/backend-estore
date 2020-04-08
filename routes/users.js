@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const auth = require("../auth");
+
 const {
   getUsers,
   createUser,
@@ -9,6 +11,11 @@ const {
 
 //routes
 router.route("/").get(getUsers).post(createUser);
-router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
+// added auth requesting jwt in header for access
+router
+  .route("/:id")
+  .get(auth, getUser)
+  .put(auth, updateUser)
+  .delete(auth, deleteUser);
 
 module.exports = router;
