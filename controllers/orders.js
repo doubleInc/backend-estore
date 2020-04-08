@@ -19,11 +19,11 @@ exports.createOrder = async (req, res, next) => {
   //TEST: console.log(req.body);
   //ADD TO DB: Promise method - Order.create(req, res).then()
   // Async/await method
-  const Order = await Order.create(req.body);
+  const order = await Order.create(req.body);
 
   res.status(201).json({
     success: true,
-    data: Order,
+    data: order,
   });
 };
 

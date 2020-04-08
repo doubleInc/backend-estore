@@ -15,7 +15,7 @@ connectDB();
 const app = express();
 
 // body parser
-app.use(express.json())
+app.use(express.json());
 
 // Dev logging middleware
 process.env.NODE_ENV === "development" ? app.use(morgan("dev")) : null;
@@ -23,6 +23,9 @@ process.env.NODE_ENV === "development" ? app.use(morgan("dev")) : null;
 //mount routes
 app.use("/orders", orders);
 app.use("/categories", categories);
+app.use("/users", require("./routes/users"));
+app.use("/items", require("./routes/items"));
+app.use("/sellers", require("./routes/sellers"));
 
 // server settings
 const PORT = process.env.PORT || 3000;

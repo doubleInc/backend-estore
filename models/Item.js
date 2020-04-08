@@ -26,9 +26,9 @@ const ItemSchema = new mongoose.Schema({
     ref: "Category",
     required: true,
   },
-  user: {
+  seller: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Seller",
     required: true,
   },
   slug: String,

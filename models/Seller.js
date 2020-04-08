@@ -36,7 +36,7 @@ const SellerSchema = new mongoose.Schema({
 });
 
 // middleware to tidy up seller name for views, eg 'Granville Halal Meats' -> 'granville-halal-meals'
-CategorySchema.pre("save", function (next) {
+SellerSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
