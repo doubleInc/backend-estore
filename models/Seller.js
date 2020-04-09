@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 const geocoder = require("../geocoder");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // regular expressions to check url and email provided is a valid one
 const url_re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
@@ -85,5 +87,23 @@ SellerSchema.pre("save", async function (next) {
 
   next();
 });
+
+// encrypt password
+SellerSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+// Static method: sign jwt return
+SellerSchema.methods.getJWT = function () {
+  return jwt.sign({ id: this._id }, process.env.JWTSECRET, {
+    expiresIn: process.env.JWTEXPIRE,
+  });
+};
+
+// match Seller entered password with hashed db stored one
+SellerSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 module.exports = mongoose.model("Seller", SellerSchema);
