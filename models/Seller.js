@@ -27,11 +27,11 @@ const SellerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-    required: false,
-    match: [url_re, "Please use a valid URL for the location of the image."],
-  },
+  // image: {
+  //   type: String,
+  //   required: false,
+  //   match: [url_re, "Please use a valid URL for the location of the image."],
+  // },
   address: {
     type: String,
     required: [true, "Please add an address"],
@@ -54,6 +54,18 @@ const SellerSchema = new mongoose.Schema({
     zipcode: String,
     country: String,
   },
+  // Cloudinary
+    imageName: {
+      type: String,
+      required: false
+    },
+    cloudImage: {
+      type: String,
+      required: false
+    },
+    imageId: {
+      type: String
+    },
   createdAt: {
     type: Date,
     default: Date.now,

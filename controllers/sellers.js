@@ -1,6 +1,7 @@
 // import model
 const Seller = require("../models/Seller");
 const geocoder = require("../geocoder");
+const cloud = require("../cloudinary");
 
 // get all Sellers
 exports.getSellers = async (req, res, next) => {
@@ -111,3 +112,65 @@ exports.getSellerInLocale = async (req, res, next) => {
     data: sellers,
   });
 };
+
+// Cloudinary
+exports.sellerCloudinary = (req, res) => {
+    try{
+        const imageDetails = {
+            imageName: req.body.imageName,
+        }
+
+        Seller.find({imageName: imageDetails.imageName}, (err, callback) => {
+            if (err) {
+                console.log(err)
+                res.json({
+                    err: err,
+                    message: 'there was a problem uploading image'
+                })
+            } else if(callback.length >= 1 ) {
+                res.json({
+                    message: 'file already exist'
+                })
+            }else {
+                var imageDetails = {
+                    imageName: req.body.imageName,
+                    cloudImage: req.files[0].path,
+                    imageId: ''
+                }
+               console.log('i got here')
+                console.log(imageDetails.cloudImage)
+                cloud.uploads(imageDetails.cloudImage).then((result) => {
+                    console.log(result)
+                    var imageDetails = {
+                        imageName: req.body.imageName,
+                        cloudImage: result.url,
+                        imageId: result.id
+                    }
+
+                        console.log('i reached here too')
+                        console.log(imageDetails.cloudImage)
+
+                        Seller.create(imageDetails, (err, created)=> {
+                        if(err){
+                            res.json({
+                                err: err,
+                                message: 'could not upload image, try again'
+                            })
+                        }else {
+                            res.json({
+                                created: created,
+                                message: "image uploaded successfully!!"
+                            })
+                        }
+                    })
+
+
+                })
+
+            }
+        });
+    }catch(execptions){
+        console.log(execptions)
+    }
+
+}
