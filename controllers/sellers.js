@@ -132,7 +132,7 @@ exports.sellerCloudinary = (req, res) => {
                     message: 'file already exist'
                 })
             }else {
-                var imageDetails = {
+                const imageDetails = {
                     imageName: req.body.imageName,
                     cloudImage: req.files[0].path,
                     imageId: ''
@@ -141,7 +141,7 @@ exports.sellerCloudinary = (req, res) => {
                 console.log(imageDetails.cloudImage)
                 cloud.uploads(imageDetails.cloudImage).then((result) => {
                     console.log(result)
-                    var imageDetails = {
+                    const imageDetails = {
                         imageName: req.body.imageName,
                         cloudImage: result.url,
                         imageId: result.id
