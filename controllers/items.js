@@ -3,14 +3,18 @@ const Item = require("../models/Item");
 
 // get all items
 exports.getItems = async (req, res, next) => {
-  // req.query for searches; /Items?<key>=<value>
-  const items = await Item.find(req.query);
+  try {
+    // req.query for searches; /Items?<key>=<value>
+    const items = await Item.find(req.query);
 
-  res.status(200).json({
-    success: true,
-    count: items.length,
-    data: items,
-  });
+    res.status(200).json({
+      success: true,
+      count: items.length,
+      data: items,
+    });
+  } catch (err) {
+    return next(err);
+  }
 };
 
 // Create
