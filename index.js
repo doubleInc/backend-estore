@@ -25,6 +25,8 @@ app.use("/items", require("./routes/items"));
 app.use("/sellers", require("./routes/sellers"));
 // signup users
 app.use("/login", require("./routes/authorize"));
+// images
+app.use("/images", require("./routes/images"));
 
 // server settings
 const PORT = process.env.PORT || 3000;
