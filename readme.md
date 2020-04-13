@@ -14,3 +14,5 @@
 `localhost:3000/categories/:id` GET/PUT/DEL a single category
 
 `localhost:3000/categories?name=Fruits` include parameters to search
+
+Heroku server: https://vast-tor-12475.herokuapp.com
